@@ -45,12 +45,17 @@ function draw(){
 document.querySelectorAll('.thumb').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     const src = btn.dataset.src;
-    if(!src){ overlaySrc = ''; overlayImg.src = ''; return; }
-    overlaySrc = src;
+    if(!src){
+      overlaySrc = '';
+      overlayImg = null; // stop drawing overlay
+      return;
+    }
     overlayImg = new Image();
+    overlayImg.onload = ()=> { overlaySrc = src; }  // chỉ update overlaySrc khi ảnh load xong
     overlayImg.src = src;
   });
 });
+
 
 // sliders
 document.getElementById('scale').addEventListener('input', (e)=>{
